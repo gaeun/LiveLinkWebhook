@@ -13,4 +13,4 @@ def on_pull_request(data):
     print("{0}".format(data))
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=80)
+    app.run(host="0.0.0.0")
