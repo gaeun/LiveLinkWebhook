@@ -16,6 +16,7 @@ def hello_world():
 
 @webhook.hook("pull_request")
 def on_pull_request(response):
+	print(response.number)
 	data = json.loads(response)	
 #if data.branch == 'gh-pages' and (data.action == 'opened' or data.action == 'reopened'):
 	if data.action == 'opened' or data.action == 'reopened':
