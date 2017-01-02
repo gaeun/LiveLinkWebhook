@@ -2,6 +2,7 @@ from github_webhook import Webhook
 from flask import Flask
 from github import Github
 import os
+import sys
 import json
 
 secret = os.environ.get('SECRET')
@@ -16,6 +17,7 @@ def hello_world():
 @webhook.hook("pull_request")
 def on_pull_request(response):
 	print("{0}".format(response))
+	sys.stdout.flush()
 	data = json.loads(response)	
 #if data.branch == 'gh-pages' and (data.action == 'opened' or data.action == 'reopened'):
 	if data.action == 'opened' or data.action == 'reopened':
