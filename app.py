@@ -16,13 +16,11 @@ def hello_world():
 
 @webhook.hook("pull_request")
 def on_pull_request(data):
-	print(data['number'])
 #if data.branch == 'gh-pages' and (data.action == 'opened' or data.action == 'reopened'):
 	if data['action'] == 'opened' or data['action'] == 'reopened':
 		pull_request_id = data['number']
-		print('test')
-		print(pull_request_id)
-		g.get_repo(data['repository']['id']).get_issue(pull_request_id).create_comment('Hello')
+		page_url = 'https://{0}.github.io/{1}'.format(data['sender']['login'], data['repository']['name'])
+		g.get_repo(data['repository']['id']).get_issue(pull_request_id).create_comment(page_url)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")
