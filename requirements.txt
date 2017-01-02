@@ -1,3 +1,9 @@
-github-webhook==1.0
-PyGithub==1.29
+click==6.6
 Flask==0.12
+github-webhook==1.0
+gunicorn==19.6.0
+itsdangerous==0.24
+Jinja2==2.8.1
+MarkupSafe==0.23
+PyGithub==1.29
+Werkzeug==0.11.15
