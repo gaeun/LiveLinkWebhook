@@ -9,6 +9,7 @@ app = Flask(__name__)
 webhook = Webhook(app, '/postreceive', secret)
 g = Github(secret)
 
+print(secret)
 
 @app.route("/")
 def hello_world():
@@ -16,7 +17,7 @@ def hello_world():
 
 @webhook.hook("pull_request")
 def on_pull_request(response):
-	print(response)
+	print("{0}".format(response))
 	data = json.loads(response)	
 #if data.branch == 'gh-pages' and (data.action == 'opened' or data.action == 'reopened'):
 	if data.action == 'opened' or data.action == 'reopened':
