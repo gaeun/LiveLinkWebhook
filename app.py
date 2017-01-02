@@ -15,15 +15,14 @@ def hello_world():
     return "Hello, World!"
 
 @webhook.hook("pull_request")
-def on_pull_request(response):
-	print(response.number)
-	data = json.loads(response)	
+def on_pull_request(data):
+	print(data['number'])
 #if data.branch == 'gh-pages' and (data.action == 'opened' or data.action == 'reopened'):
-	if data.action == 'opened' or data.action == 'reopened':
-		pull_request_id = data.number
+	if data['action'] == 'opened' or data['action'] == 'reopened':
+		pull_request_id = data['number']
 		print('test')
 		print(pull_request_id)
-		g.get_repo(data.repository.id).get_issue(pull_request_id).create_comment('Hello')
+		g.get_repo(data['repository']['id']).get_issue(pull_request_id).create_comment('Hello')
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")
