@@ -3,7 +3,7 @@ from flask import Flask
 import os
 
 app = Flask(__name__)  # Standard Flask app
-webhook = Webhook(app, '/postreceive', os.environ['SECRET']) # Defines '/postreceive' endpoint
+webhook = Webhook(app, '/postreceive', os.environ.get('SECRET')) # Defines '/postreceive' endpoint
 
 @app.route("/")        # Standard Flask endpoint
 def hello_world():
