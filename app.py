@@ -1,17 +1,26 @@
 from github_webhook import Webhook
 from flask import Flask
+from github import Github
 import os
+import json
 
-app = Flask(__name__)  # Standard Flask app
-webhook = Webhook(app, '/postreceive', os.environ.get('SECRET')) # Defines '/postreceive' endpoint
+secret = os.environ.get('SECRET')
+app = Flask(__name__)
+webhook = Webhook(app, '/postreceive', secret)
+g = Github(secret)
 
-@app.route("/")        # Standard Flask endpoint
+
+@app.route("/")
 def hello_world():
     return "Hello, World!"
 
 @webhook.hook("pull_request")
-def on_pull_request(data):
-    print("{0}".format(data))
+def on_pull_request(response):
+	data = json.loads(response)
+	if (data.branch == 'gh-pages' && (data.action == 'opened' || data.action == 'reopened')):
+		pull_request_id = data.number
+		g.get_repo(data.repository.id).get_issue(pull_request_id).create_comment('Hello')
+	print(data)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")
