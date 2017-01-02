@@ -13,6 +13,7 @@ print(secret)
 
 @app.route("/")
 def hello_world():
+	print('test')
     return "Hello, World!"
 
 @webhook.hook("pull_request")
